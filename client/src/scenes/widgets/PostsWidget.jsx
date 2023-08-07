@@ -8,7 +8,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
-  console.log(state1);
 
   const changeState = () => {
     setState1(state1 + 1);
