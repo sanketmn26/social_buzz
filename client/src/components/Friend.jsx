@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {userId} = useParams();
+  const { userId } = useParams();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
@@ -24,7 +24,9 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const patchFriend = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
+      // `http://localhost:3001/users/${_id}/${friendId}`,
+      `https://social-buzz-server.onrender.com/users/${_id}/${friendId}`,
+
       {
         method: "PATCH",
         headers: {
@@ -36,7 +38,6 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     const data = await response.json();
     dispatch(setFriends({ friends: data }));
   };
-
 
   return (
     <FlexBetween>
@@ -66,7 +67,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         </Box>
       </FlexBetween>
 
-      {(friendId !== _id) && !userId &&  (
+      {friendId !== _id && !userId && (
         <IconButton
           onClick={() => patchFriend()}
           sx={{ backgroundColor: primaryLight, p: "0.6rem" }}

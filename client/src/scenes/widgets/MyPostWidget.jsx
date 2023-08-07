@@ -38,7 +38,6 @@ const MyPostWidget = ({ picturePath }) => {
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
 
-
   const handlePost = async () => {
     const formData = new FormData();
     formData.append("userId", _id);
@@ -48,20 +47,26 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append("picturePath", image.name);
     }
 
-    const response = await fetch(`http://localhost:3001/posts`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData,
-    });
+    const response = await fetch(
+      // `http://localhost:3001/posts`,
+      `https://social-buzz-server.onrender.com/posts`,
+
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      }
+    );
 
     const posts = await response.json();
-    console.log(posts)
+    console.log(posts);
     dispatch(setPosts({ posts }));
     setImage(null);
     setPost("");
   };
   return (
-    <WidgetWrapper mb="2rem"
+    <WidgetWrapper
+      mb="2rem"
       mt={!isNonMobileScreens ? "1.5rem" : "0rem"}
       sx={{ boxShadow: "0px 1px 7px #858585" }}
     >
